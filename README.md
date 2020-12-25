@@ -14,6 +14,10 @@ directly on the VGA framebuffer. It uses a standard 320x200 256-color mode (VGA
 mode 13h). This *should* work on any reasonable PC hardware at all, though I've
 only tested it on a virtual machine (QEMU).
 
+The default version `floppy.img` is actually a 4-sector (2KB) demo, but `make
+floppy_1sector.img` will build a true 1-sector (512-byte) demo, missing only
+the text on the screen.
+
 Building and Running under QEMU
 ===============================
 
@@ -23,7 +27,7 @@ should be able to just `make qemu` on Linux. E.g., on Ubuntu:
     apt install nasm qemu-system-x86
 
     cd treeos/
-    make qemu
+    make qemu   # or: make qemu_1sector
 
 License
 =======
