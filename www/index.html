@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+    <head>
+        <title>TreeOS</title>
+    </head>
+
+    <body>
+        <h1>TreeOS</h1>
+
+        <p>
+        This is a 512-byte boot sector demo running in a PC emulator (in 16-bit
+        mode). It uses 8087 floating-point instructions, and accesses VGA
+        hardware directly. (Credit to <a
+            href="https://github.com/copy/v86">v86</a> for the excellent x86 PC
+        emulator, incidentally using a Wasm backend which is pretty cool!)
+        </p>
+
+        <p>
+        Source: <a
+            href="https://github.com/cfallin/treeos">github.com/cfallin/treeos</a>.
+        Originally developed in 2019, but finally posted online in an emulator
+        in 2025.
+        </p>
+
+        <p>
+        Happy holidays!
+        </p>
+
+        <p>
+        -- <a href="https://cfallin.org/">cfallin</a>
+        </p>
+
+        <!-- A minimal structure for the ScreenAdapter defined in browser/screen.js -->
+        <div id="screen_container">
+            <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+            <canvas style="display: none"></canvas>
+        </div>
+
+        <script src="libv86.js"></script>
+        <script>
+            "use strict";
+
+            window.onload = function()
+            {
+                var emulator = window.emulator = new V86({
+                    wasm_path: "v86.wasm",
+                    memory_size: 1 * 1024 * 1024,
+                    vga_memory_size: 65536,
+                    screen_container: document.getElementById("screen_container"),
+                    bios: {
+                        url: "seabios.bin",
+                    },
+                    vga_bios: {
+                        url: "vgabios.bin",
+                    },
+                    cdrom: {
+                        url: "treeos.iso",
+                    },
+                    autostart: true,
+                });
+            }
+        </script>
+    </body>
+</html>
